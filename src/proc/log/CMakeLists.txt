@@ -1,0 +1,1 @@
+add_executable (log_process log_main.cpp)

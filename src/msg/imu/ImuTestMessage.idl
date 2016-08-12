@@ -1,0 +1,14 @@
+module ImuTestMessage
+{
+  #pragma DCPS_DATA_TYPE "ImuTestMessage::Message"
+  #pragma DCPS_DATA_KEY "ImuTestMessage::Message subject_id"
+
+  struct ImuTestMessage
+  {
+    string from;
+    string subject;
+    long subject_id;
+    string text;
+    long count;
+  };
+};

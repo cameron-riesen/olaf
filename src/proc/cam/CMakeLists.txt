@@ -1,0 +1,1 @@
+add_executable (camera_process camera_main.cpp)

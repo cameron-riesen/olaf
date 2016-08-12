@@ -1,0 +1,14 @@
+module HwTestMessage
+{
+  #pragma DCPS_DATA_TYPE "HwTestMessage::Message"
+  #pragma DCPS_DATA_KEY "HwTestMessage::Message subject_id"
+
+  struct HwTestMessage
+  {
+    string from;
+    string subject;
+    long subject_id;
+    string text;
+    long count;
+  };
+};

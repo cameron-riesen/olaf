@@ -1,0 +1,14 @@
+module GpSTestMessage
+{
+  #pragma DCPS_DATA_TYPE "GpsTestMessage::Message"
+  #pragma DCPS_DATA_KEY "GpsTestMessage::Message subject_id"
+
+  struct GpsTestMessage
+  {
+    string from;
+    string subject;
+    long subject_id;
+    string text;
+    long count;
+  };
+};
