@@ -34,8 +34,10 @@ printf "set (TAO_IDL_2_OUTPUT \${CMAKE_CURRENT_SOURCE_DIR}/${messageTypeSupportC
 printf "\n" >> CMakeLists.txt
 printf "add_library (${lib_name} SHARED \${CMAKE_CURRENT_SOURCE_DIR}/${messageC_source} \${CMAKE_CURRENT_SOURCE_DIR}/${messageS_source} \${CMAKE_CURRENT_SOURCE_DIR}/${messageTypeSupportC_source} \${CMAKE_CURRENT_SOURCE_DIR}/${messageTypeSupportImpl_source} \${CMAKE_CURRENT_SOURCE_DIR}/${messageTypeSupportS_source})\n" >> CMakeLists.txt
 printf "\n" >> CMakeLists.txt
-printf "add_custom_command (OUTPUT \${OPENDDS_IDL_OUTPUT} COMMAND \$ENV{DDS_ROOT}/bin/opendds_idl \${CMAKE_CURRENT_SOURCE_DIR}/CamTestMessage.idl                     WORKING_DIRECTORY \${CMAKE_CURRENT_SOURCE_DIR})\n" >> CMakeLists.txt
-printf "add_custom_command (OUTPUT \${TAO_IDL_1_OUTPUT}   COMMAND tao_idl -I\$DDS_ROOT -I\$TAO_ROOT/orbsvcs \${CMAKE_CURRENT_SOURCE_DIR}/CamTestMessage.idl            WORKING_DIRECTORY \${CMAKE_CURRENT_SOURCE_DIR})\n" >> CMakeLists.txt
-printf "add_custom_command (OUTPUT \${TAO_IDL_2_OUTPUT}   COMMAND tao_idl -I\$DDS_ROOT -I\$TAO_ROOT/orbsvcs \${CMAKE_CURRENT_SOURCE_DIR}/CamTestMessageTypeSupport.idl WORKING_DIRECTORY \${CMAKE_CURRENT_SOURCE_DIR})\n" >> CMakeLists.txt
+printf "add_custom_command (OUTPUT \${OPENDDS_IDL_OUTPUT} COMMAND \$ENV{DDS_ROOT}/bin/opendds_idl \${CMAKE_CURRENT_SOURCE_DIR}/${input_file_name}                     WORKING_DIRECTORY \${CMAKE_CURRENT_SOURCE_DIR})\n" >> CMakeLists.txt
+printf "add_custom_command (OUTPUT \${TAO_IDL_1_OUTPUT}   COMMAND tao_idl -I\$ENV{DDS_ROOT} -I\$ENV{TAO_ROOT}/orbsvcs \${CMAKE_CURRENT_SOURCE_DIR}/${input_file_name}            WORKING_DIRECTORY \${CMAKE_CURRENT_SOURCE_DIR})\n" >> CMakeLists.txt
+printf "add_custom_command (OUTPUT \${TAO_IDL_2_OUTPUT}   COMMAND tao_idl -I\$ENV{DDS_ROOT} -I\$ENV{TAO_ROOT}/orbsvcs \${CMAKE_CURRENT_SOURCE_DIR}/${messageTypeSupport_idl} WORKING_DIRECTORY \${CMAKE_CURRENT_SOURCE_DIR})\n" >> CMakeLists.txt
+printf "\n" >> CMakeLists.txt
+printf "set_target_properties (${lib_name} PROPERTIES LIBRARY_OUTPUT_DIRECTORY \"\${CMAKE_BINARY_DIR}/lib/msg\")\n" >> CMakeLists.txt
 
 printf "*\n!.gitignore\n!CMakeLists.txt\n!${input_file_name}" > .gitignore

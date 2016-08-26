@@ -7,3 +7,5 @@ add_library (camtestmessage SHARED ${CMAKE_CURRENT_SOURCE_DIR}/CamTestMessageC.c
 add_custom_command (OUTPUT ${OPENDDS_IDL_OUTPUT} COMMAND $ENV{DDS_ROOT}/bin/opendds_idl ${CMAKE_CURRENT_SOURCE_DIR}/CamTestMessage.idl                     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 add_custom_command (OUTPUT ${TAO_IDL_1_OUTPUT}   COMMAND tao_idl -I$DDS_ROOT -I$TAO_ROOT/orbsvcs ${CMAKE_CURRENT_SOURCE_DIR}/CamTestMessage.idl            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 add_custom_command (OUTPUT ${TAO_IDL_2_OUTPUT}   COMMAND tao_idl -I$DDS_ROOT -I$TAO_ROOT/orbsvcs ${CMAKE_CURRENT_SOURCE_DIR}/CamTestMessageTypeSupport.idl WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+
+set_target_properties (camtestmessage PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib/msg")
