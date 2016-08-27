@@ -1,9 +1,8 @@
 cmake_minimum_required (VERSION 2.6)
 project (Olaf)
 
-#include_directories (${CMAKE_CURRENT_SOURCE_DIR}/messages/camera)
-
-SET (CMAKE_CXX_FLAGS "-std=c++11 -g -Wno-deprecated-declarations")
+SET (CMAKE_CXX_FLAGS "-std=c++11 -Wno-deprecated-declarations")
 
 add_subdirectory (src)
 add_subdirectory (test)
+add_subdirectory (scripts)
