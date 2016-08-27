@@ -1,0 +1,5 @@
+External projects:
+         OpenDDS (v3.8)
+         log4cplus (v1.2.?)
+                   Needed to run 'autoreconf -f -i' before running make
+                   Had to set $LD_LIBRARY_PATH=/usr/local/lib

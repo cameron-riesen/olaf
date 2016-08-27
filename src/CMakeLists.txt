@@ -22,6 +22,7 @@ link_libraries (TAO_PortableServer)
 link_libraries (TAO_AnyTypeCode)
 link_libraries (TAO)
 link_libraries (ACE)
+link_libraries (log4cplus)
 
 add_subdirectory (msg)
 add_subdirectory (dds_wrapper)

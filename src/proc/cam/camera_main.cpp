@@ -1,12 +1,16 @@
-#include "runtime_logger.h"
+#include <log4cplus/logger.h>
+#include <log4cplus/loggingmacros.h>
+#include <log4cplus/configurator.h>
+#include <log4cplus/initializer.h>
 
 int main()
 {
-  Runtime_Logger runtime_logger;
+  log4cplus::Initializer init;
+  
+  log4cplus::BasicConfigurator config;
+  config.configure();
 
-  runtime_logger.log_debug("this is some debug");
-  runtime_logger.log_info("this is some info");
-  runtime_logger.log_warning("this is some warning");
-  runtime_logger.log_error("this is some error", 5);
-  runtime_logger.log_fatal("this is some fatal");
+  log4cplus::Logger logger = log4cplus::Logger::getInstance(LOG4CPLUS_TEXT("TEST"));
+
+  LOG4CPLUS_INFO(logger, "Camera main started");
 }
