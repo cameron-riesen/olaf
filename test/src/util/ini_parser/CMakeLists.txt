@@ -6,4 +6,4 @@ target_link_libraries (ini_parser_tests ini_parser)
 
 set_target_properties (ini_parser_tests PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/test/src/util/ini_parser")
 
-file (COPY bad_format_1.ini bad_format_2.ini bad_format_3.ini bad_format_4.ini DESTINATION "${CMAKE_BINARY_DIR}/test/src/util/ini_parser")
+file (COPY test_input DESTINATION "${CMAKE_BINARY_DIR}/test/src/util/ini_parser")

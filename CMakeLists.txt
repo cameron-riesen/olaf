@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 2.6)
 project (Olaf)
 
-SET (CMAKE_CXX_FLAGS "-std=c++11 -Wno-deprecated-declarations -g")
+SET (CMAKE_CXX_FLAGS "-std=c++11 -pthread -Wno-deprecated-declarations -g")
 
 include_directories ($ENV{ACE_ROOT})
 include_directories ($ENV{TAO_ROOT})

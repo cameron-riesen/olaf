@@ -1,7 +1,15 @@
 #ifndef INI_PARSER_H
 #define INI_PARSER_H
 
-#include "ini_section.h"
+//#include "ini_section.h"
+#include "datestamp.h"
+#include "timestamp.h"
+#include "conversion_exception.h"
+#include "file_not_found_exception.h"
+#include "file_not_open_exception.h"
+#include "ini_format_exception.h"
+#include "key_not_found_exception.h"
+#include "tag_not_found_exception.h"
 
 #include <map>
 #include <fstream>
@@ -57,7 +65,19 @@ namespace Ini_Parser
     //! \return Flag indicating if a file is open.
     bool is_file_open() const;
 
-    const Ini_Section operator[](const std::string &tag) const;
+    //! \brief Overloaded [] operator that returns a section from the .ini file.
+    //!
+    //! \param[in] tag The tag to search for.
+    //!
+    //! \return Ini_Section with the section keys and values.
+    //!
+    //! \throws Tag_Not_Found_Exception
+    //const Ini_Section operator[](const std::string &tag) const;
+
+    std::string get(const std::string &tag, const std::string &key) const;
+
+    template <typename T>
+    T get_as(const std::string &tag, const std::string &key) const;
 
   private:
     std::string fname;
