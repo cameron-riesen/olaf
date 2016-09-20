@@ -12,8 +12,16 @@ namespace Ini_Parser
     Datestamp(const std::tm &date);
     Datestamp(const Datestamp &other);
     Datestamp(Datestamp &&other);
+    
     Datestamp &operator=(const Datestamp &other);
     Datestamp &operator=(Datestamp &&other);
+    bool operator==(const Datestamp &other);
+    bool operator!=(const Datestamp &other);
+    bool operator>(const Datestamp &other);
+    bool operator<(const Datestamp &other);
+    bool operator>=(const Datestamp &other);
+    bool operator<=(const Datestamp &other);
+    
     ~Datestamp() = default;
 
     int &month;

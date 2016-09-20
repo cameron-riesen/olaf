@@ -33,16 +33,16 @@ namespace Ini_Parser
     Ini_Parser(const std::string &file_name);
 
     //! \brief Defaulted copy constructor
-    Ini_Parser(const Ini_Parser &other) = default;
+    Ini_Parser(const Ini_Parser &other) = delete;
 
     //! \brief Defaulted move constructor
-    Ini_Parser(Ini_Parser &&other) = default;
+    Ini_Parser(Ini_Parser &&other) = delete;
 
     //! \brief Defaulted copy assignment operator  constructor
-    Ini_Parser &operator=(const Ini_Parser &other) = default;
+    Ini_Parser &operator=(const Ini_Parser &other) = delete;
 
     //! \brief Defaulted move assignment operator  constructor
-    Ini_Parser &operator=(Ini_Parser &&other) = default;
+    Ini_Parser &operator=(Ini_Parser &&other) = delete;
 
     //! \brief Destructor
     ~Ini_Parser() = default;

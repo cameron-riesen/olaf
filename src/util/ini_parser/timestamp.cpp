@@ -58,6 +58,41 @@ namespace Ini_Parser
     return (*this);
   }
 
+  bool Timestamp::operator==(const Timestamp &other)
+  {
+    return (this->hour == other.hour &&
+	    this->minute == other.minute &&
+	    this->second == other.second);
+  }
+  
+  bool Timestamp::operator!=(const Timestamp &other)
+  {
+    return (!(*this == other));
+  }
+  
+  bool Timestamp::operator>(const Timestamp &other)
+  {
+    int this_total_seconds = (this->hour * 60 * 60) + (this->minute * 60) + this->second;
+    int other_total_seconds = (other.hour * 60 * 60) + (other.minute * 60) + other.second;
+
+    return (this_total_seconds > other_total_seconds);
+  }
+  
+  bool Timestamp::operator<(const Timestamp &other)
+  {
+    return (!(*this > other) && !(*this == other));
+  }
+  
+  bool Timestamp::operator>=(const Timestamp &other)
+  {
+    return ((*this > other) || (*this == other));
+  }
+  
+  bool Timestamp::operator<=(const Timestamp &other)
+  {
+    return ((*this < other) || (*this == other));
+  }
+  
   std::ostream &operator<<(std::ostream &os, const Timestamp &time)
   {
     char buff[100];

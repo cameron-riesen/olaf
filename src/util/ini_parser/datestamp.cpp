@@ -68,6 +68,55 @@ namespace Ini_Parser
     return (*this);
   }
 
+  bool Datestamp::operator==(const Datestamp &other)
+  {
+    // Not comparing day of week because it is a side effect of the
+    // month, day and year.
+    return (this->month == other.month &&
+	    this->day_of_month == other.day_of_month &&
+	    this->year == other.year);
+  }
+  
+  bool Datestamp::operator!=(const Datestamp &other)
+  {
+    return (!(*this == other));
+  }
+  
+  bool Datestamp::operator>(const Datestamp &other)
+  {
+    bool ret = false;
+    
+    if (this->year != other.year)
+    {
+      ret = this->year > other.year;
+    }
+    else if (this->month != other.month)
+    {
+      ret = this->month > other.month;
+    }
+    else if (this->day_of_month != other.day_of_month)
+    {
+      ret = this->day_of_month > other.day_of_month;
+    }
+
+    return (ret);
+  }
+  
+  bool Datestamp::operator<(const Datestamp &other)
+  {
+    return (!(*this > other) && !(*this == other));
+  }
+  
+  bool Datestamp::operator>=(const Datestamp &other)
+  {
+    return ((*this == other) || (*this > other));
+  }
+  
+  bool Datestamp::operator<=(const Datestamp &other)
+  {
+    return ((*this == other) || (*this < other));
+  }
+  
   std::ostream &operator<<(std::ostream &os, const Datestamp &date)
   {
     char buff[100];
