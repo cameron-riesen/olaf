@@ -6,11 +6,11 @@
 int main()
 {
   log4cplus::Initializer init;
-  
-  log4cplus::BasicConfigurator config;
+  log4cplus::PropertyConfigurator config("/home/pi/Documents/olaf/config/log4cplus.properties");
   config.configure();
 
-  log4cplus::Logger logger = log4cplus::Logger::getInstance(LOG4CPLUS_TEXT("TEST"));
+  log4cplus::Logger file_logger = log4cplus::Logger::getInstance(LOG4CPLUS_TEXT("Olaf_File_Logger"));
+  log4cplus::Logger console_logger = log4cplus::Logger::getInstance(LOG4CPLUS_TEXT("Olaf_Console_Logger"));
 
-  LOG4CPLUS_INFO(logger, "Hardware interface main started");
+  LOG4CPLUS_INFO(console_logger, "Hardware interface main started");
 }
