@@ -10,6 +10,7 @@ namespace Ini_Parser
 
   const char* Key_Not_Found_Exception::what() const throw()
   {
-    return ("Tag not found exception");
+    std::string ret = "Could not find key by the name '" + this->name + "'";
+    return (ret.c_str());
   }
 }

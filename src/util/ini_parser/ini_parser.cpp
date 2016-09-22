@@ -54,9 +54,13 @@ namespace Ini_Parser
       // defined. Key/value pairs that are not inside a tag are
       // ignored.
       bool in_tag = false;
+
+      int line_num = 0;
     
       while (std::getline(file, current_line))
       {
+	line_num++;
+	
 	// Ignore empty lines, no operations can be performed on them.
 	if (current_line.empty()) { continue; }
 
@@ -91,7 +95,7 @@ namespace Ini_Parser
         }
         else
         {
-          throw (Ini_Format_Exception(this->fname, current_line, 26));
+          throw (Ini_Format_Exception(this->fname, current_line, line_num));
         }
       }
     }
@@ -100,19 +104,6 @@ namespace Ini_Parser
       throw (File_Not_Open_Exception());
     }
   }
-
-  // const Ini_Section Ini_Parser::operator[](const std::string &tag) const
-  // {
-  //   const auto kvm = value_map.find(tag);
-  //   if (kvm != value_map.end())
-  //   {
-  //     return (Ini_Section(tag, kvm->second));
-  //   }
-  //   else
-  //   {
-  //     throw (Tag_Not_Found_Exception(tag));
-  //   }
-  // }
 
   std::string Ini_Parser::get(const std::string &tag, const std::string &key) const
   {
@@ -163,26 +154,6 @@ namespace Ini_Parser
   {
     return (this->get(tag, key));
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   template <>
   int Ini_Parser::get_as<int>(const std::string &tag, const std::string &key) const

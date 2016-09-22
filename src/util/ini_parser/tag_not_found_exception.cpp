@@ -10,6 +10,7 @@ namespace Ini_Parser
 
   const char* Tag_Not_Found_Exception::what() const throw()
   {
-    return ("Tag not found exception");
+    std::string ret = "Could not find tag by the name '" + this->name + "'";
+    return (ret.c_str());
   }
 }

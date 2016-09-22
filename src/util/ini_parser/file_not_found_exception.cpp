@@ -10,7 +10,8 @@ namespace Ini_Parser
 
   const char* File_Not_Found_Exception::what() const throw()
   {
-    return ("ini file not found exception");
+    std::string ret = "File " + this->fname + " could not be found.";
+    return (ret.c_str());
   }
 }
 

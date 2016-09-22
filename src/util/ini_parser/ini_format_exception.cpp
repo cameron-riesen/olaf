@@ -9,12 +9,9 @@ namespace Ini_Parser
   {
   }
 
-  Ini_Format_Exception::~Ini_Format_Exception()
-  {
-  }
-  
   const char* Ini_Format_Exception::what() const throw()
   {
-    return ("ini format exception");
+    std::string ret = "File '" + this->fname + "':" + std::to_string(num) + ": Error parsing line '" + line + "'.";
+    return (ret.c_str());
   }
 }

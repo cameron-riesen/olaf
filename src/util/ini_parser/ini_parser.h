@@ -1,7 +1,6 @@
 #ifndef INI_PARSER_H
 #define INI_PARSER_H
 
-//#include "ini_section.h"
 #include "datestamp.h"
 #include "timestamp.h"
 #include "conversion_exception.h"
@@ -18,7 +17,7 @@ namespace Ini_Parser
 {
   //! \class Ini_Parser
   //!
-  //! \brief Parse standard .ini formatted files
+  //! \brief Parse .ini formatted files
   class Ini_Parser
   {
   public:
@@ -65,17 +64,30 @@ namespace Ini_Parser
     //! \return Flag indicating if a file is open.
     bool is_file_open() const;
 
-    //! \brief Overloaded [] operator that returns a section from the .ini file.
+    //! \brief Get raw value as as string
     //!
-    //! \param[in] tag The tag to search for.
+    //! \param[in] tag Tag name to look for
+    //! \param[in] key Key name to look for inside tag
     //!
-    //! \return Ini_Section with the section keys and values.
-    //!
+    //! \throws Key_Not_Found_Exception
     //! \throws Tag_Not_Found_Exception
-    //const Ini_Section operator[](const std::string &tag) const;
-
+    //! \throws Conversion_Exception
+    //!
+    //! return The (tag, key) value as a string
     std::string get(const std::string &tag, const std::string &key) const;
 
+    //! \brief Get (tag, key) value as a type. Supported types are
+    //! bool, std::string, int, long, long long, float, double,
+    //! Ini_Parser::Datestamp, and Ini_Parser::Timestamp
+    //!
+    //! \param[in] tag Tag name to look for
+    //! \param[in] key Key name to look for inside tag
+    //!
+    //! \throws Key_Not_Found_Exception
+    //! \throws Tag_Not_Found_Exception
+    //! \throws Conversion_Exception
+    //!
+    //! return The (tag, key) value as a string
     template <typename T>
     T get_as(const std::string &tag, const std::string &key) const;
 

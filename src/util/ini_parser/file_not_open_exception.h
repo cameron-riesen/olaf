@@ -5,10 +5,14 @@
 
 namespace Ini_Parser
 {
+  //! \class File_Not_Open_Exception
+  //!
+  //! \brief Thrown when operations are performed on a
+  //! file that is not open
   class File_Not_Open_Exception : public std::exception
   {
   public:
-    
+    //! \brief Print error
     virtual const char* what() const throw();
 
   private:
