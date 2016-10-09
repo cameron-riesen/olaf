@@ -3,6 +3,8 @@
 #include <log4cplus/configurator.h>
 #include <log4cplus/initializer.h>
 
+#include <dds/dds.hpp>
+
 int main()
 {
   log4cplus::Initializer init;
@@ -13,4 +15,6 @@ int main()
   log4cplus::Logger console_logger = log4cplus::Logger::getInstance(LOG4CPLUS_TEXT("Olaf_Console_Logger"));
 
   LOG4CPLUS_INFO(console_logger, "Camera main started");
+
+  dds::domain::DomainParticipant participant(0);
 }

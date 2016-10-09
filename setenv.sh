@@ -2,5 +2,6 @@
 OLAF_SRC_ROOT=`pwd`
 # needs to be modified
 OLAF_BUILD_ROOT=/home/pi/Documents/olaf_build
-# needs to be modified
-. ~/Documents/opendds/setenv.sh
+# DDS (OpenSplice) -- needs to be modified depending on OpenSplice
+# installation directory
+. ~/Documents/HDE/armv6l.linux/release.com
