@@ -29,7 +29,7 @@ int main()
 
   std::cout << "Waiting..." << "\n";
   
-  while (matches.current_count())
+  while (matches.current_count() < 1)
   {
     matches = data_writer.publication_matched_status();
   }

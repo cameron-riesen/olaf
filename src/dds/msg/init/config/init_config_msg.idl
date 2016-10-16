@@ -1,0 +1,79 @@
+module Init_Messages
+{
+  struct Time
+  {
+    short hour;
+    short minute;
+    short second;
+  };
+
+  struct Date
+  {
+    short year;
+    short month;
+    short day;
+  };
+  
+  struct Daily_Window
+  {
+    Time start_time;
+    Date start_date;
+    boolean record_on_interval;
+    short interval_off;
+    short interval_on;
+  };
+
+  typedef sequence<Daily_Window> Daily_Window_List;
+
+  struct Global_Config
+  {
+    Time mission_start_time;
+    Date mission_start_date;
+    boolean daily_window_enabled;
+    Daily_Window_List daily_windows;
+  };
+
+  struct Camera_Config
+  {
+    boolean enabled;
+    short motion_trigger;
+  };
+
+  struct Gps_Config
+  {
+    boolean enabled;
+  };
+
+  struct Imu_Config
+  {
+    boolean enabled;
+  };
+
+  struct Radio_Config
+  {
+    boolean enabled;
+  };
+
+  struct Lights_Config
+  {
+    boolean enabled;
+    boolean on_with_camera;
+    boolean on_with_camera_in_window;
+  };
+
+  struct Hardware_Interface_Config
+  {
+    string config_file;
+  };
+
+  struct Config_Message
+  {
+    Global_Config global_config;
+    Camera_Config camera_config;
+    Gps_Config gps_config;
+    Imu_Config imu_config;
+    Radio_Config radio_config;
+    Lights_Config lights_config;
+    Hardware_Interface_Config hardware_interface_config;
+  };
+};

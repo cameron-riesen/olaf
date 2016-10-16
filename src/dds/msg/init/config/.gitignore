@@ -1,0 +1,4 @@
+*
+!.gitignore
+!CMakeLists.txt
+!init_config_msg.idl
