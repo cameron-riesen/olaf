@@ -68,36 +68,10 @@ int main(int argc, char **argv)
 	// int interval_off = parser.get_as<int>(tag, "interval_off");
       }
     }
-
   }
-  catch (const Ini_Parser::File_Not_Found_Exception &e)
+  catch (const Ini_Parser::Ini_Parser_Exception &e)
   {
-    LOG4CPLUS_FATAL(console_logger, "Config file " << argv[1] << " not found. Initializating failed.");
-    std::exit(EXIT_FAILURE);
-  }
-  catch (const Ini_Parser::File_Not_Open_Exception &e)
-  {
-    LOG4CPLUS_FATAL(console_logger, "Tried to parse file without opening first. Initializating failed.");
-    std::exit(EXIT_FAILURE);
-  }
-  catch (const Ini_Parser::Ini_Format_Exception &e)
-  {
-    LOG4CPLUS_FATAL(console_logger, "Error in config file " << argv[1] << ": " << e.what());
-    std::exit(EXIT_FAILURE);
-  }
-  catch (const Ini_Parser::Conversion_Exception &e)
-  {
-    LOG4CPLUS_FATAL(console_logger, "Error in config file " << argv[1] << ": " << e.what());
-    std::exit(EXIT_FAILURE);
-  }
-  catch (const Ini_Parser::Tag_Not_Found_Exception &e)
-  {
-    LOG4CPLUS_WARN(console_logger, "Error in config file " << argv[1] << ": " << e.what());
-    std::exit(EXIT_FAILURE);
-  }
-  catch (const Ini_Parser::Key_Not_Found_Exception &e)
-  {
-    LOG4CPLUS_WARN(console_logger, "Error in config file " << argv[1] << ": " << e.what());
+    LOG4CPLUS_FATAL(console_logger, e.what());
     std::exit(EXIT_FAILURE);
   }
 }

@@ -1,9 +1,4 @@
 #include "ini_parser.h"
-#include "file_not_found_exception.h"
-#include "file_not_open_exception.h"
-#include "ini_format_exception.h"
-#include "key_not_found_exception.h"
-#include "tag_not_found_exception.h"
 
 #include <iostream>
 
@@ -12,7 +7,6 @@ namespace Ini_Parser
   Ini_Parser::Ini_Parser() :
     fname()
   {
-  
   }
 
   Ini_Parser::Ini_Parser(const std::string &file_name)
@@ -31,7 +25,8 @@ namespace Ini_Parser
     }
     else
     {
-      throw (File_Not_Found_Exception(this->fname));
+      std::string exception_message = "could not find file " + this->fname;
+      throw (Ini_Parser_Exception(exception_message));
     }
   }
 
@@ -59,49 +54,49 @@ namespace Ini_Parser
     
       while (std::getline(file, current_line))
       {
-	line_num++;
-	
-	// Ignore empty lines, no operations can be performed on them.
-	if (current_line.empty()) { continue; }
+        line_num++;
+        
+        // Ignore empty lines, no operations can be performed on them.
+        if (current_line.empty()) { continue; }
 
         // Trim excess whitespace before and after actual text.
         int first = current_line.find_first_not_of(whitespace);
         int second = current_line.find_last_not_of(whitespace);
 
-	// Ignore lines composed of only whitespace characters.
-	if (first == std::string::npos || second == std::string::npos) { continue; }
+        // Ignore lines composed of only whitespace characters.
+        if (first == std::string::npos || second == std::string::npos) { continue; }
 
         std::string trimmed_current_line(current_line.substr(first, (second-first)+1));
       
         if (this->is_ignorable(trimmed_current_line))
         {
-          //std::cout << "Read an ignorable line, skipping...\n";
           continue;
         }
         else if (this->is_tag(trimmed_current_line, tag_name))
         {
-          //std::cout << "Read tag \"" << tag_name << "\", adding to map...\n";
           in_tag = true;
         }
         else if (this->is_key_value(trimmed_current_line, key, value))
         {
-          //std::cout << "Read a key-value pair \"(" << key << "," << value << ")\", adding to map...\n";
           if (in_tag)
           {
             // Parse key/value and add to map
             // Add key/value to map
-	    value_map[tag_name][key] = value;
+            value_map[tag_name][key] = value;
           }
         }
         else
         {
-          throw (Ini_Format_Exception(this->fname, current_line, line_num));
+          std::string exception_message(std::to_string(line_num));
+          exception_message += ": ";
+          exception_message += current_line;
+          throw (Ini_Parser_Exception(exception_message));
         }
       }
     }
     else
     {
-      throw (File_Not_Open_Exception());
+      throw (Ini_Parser_Exception("no file open to parse"));
     }
   }
 
@@ -115,16 +110,24 @@ namespace Ini_Parser
       const auto &value = kvm->second.find(key);
       if (value != kvm->second.end())
       {
-	ret = value->second;
+        ret = value->second;
       }
       else
       {
-	throw (Key_Not_Found_Exception(key));
+        std::string exception_message = "could not find key in key-value pair (";
+        exception_message += tag;
+        exception_message += ",";
+        exception_message += key;
+        exception_message += ")";
+        throw (Ini_Parser_Exception(exception_message));
       }
     }
     else
     {
-      throw (Tag_Not_Found_Exception(tag));
+      std::string exception_message = "could not find tag '";
+      exception_message += tag;
+      exception_message += "'";
+      throw (Ini_Parser_Exception(exception_message));
     }
 
     return (ret);
@@ -145,7 +148,10 @@ namespace Ini_Parser
     }
     else
     {
-      throw (Conversion_Exception(value, "bool"));
+      std::string exception_message = "cannot convert from ";
+      exception_message += value;
+      exception_message += " to bool";
+      throw (Ini_Parser_Exception(exception_message));
     }
   }
 
@@ -162,16 +168,21 @@ namespace Ini_Parser
 
     try
     {
-      int int_value = std::stoi(value);
-      return (int_value);
+      return (std::stoi(value));
     }
     catch (const std::invalid_argument &e)
     {
-      throw (Conversion_Exception(value, "int"));
+      std::string exception_message = "cannot convert from ";
+      exception_message += value;
+      exception_message += " to int";
+      throw (Ini_Parser_Exception(exception_message));
     }
     catch (const std::out_of_range &e)
     {
-      throw (Conversion_Exception(value, "int"));
+      std::string exception_message = "cannot convert from ";
+      exception_message += value;
+      exception_message += " to int";
+      throw (Ini_Parser_Exception(exception_message));
     }
   }
 
@@ -182,16 +193,21 @@ namespace Ini_Parser
 
     try
     {
-      int long_value = std::stol(value);
-      return (long_value);
+      return (std::stol(value));
     }
     catch (const std::invalid_argument &e)
     {
-      throw (Conversion_Exception(value, "long"));
+      std::string exception_message = "cannot convert from ";
+      exception_message += value;
+      exception_message += " to long";
+      throw (Ini_Parser_Exception(exception_message));
     }
     catch (const std::out_of_range &e)
     {
-      throw (Conversion_Exception(value, "long"));
+      std::string exception_message = "cannot convert from ";
+      exception_message += value;
+      exception_message += " to long";
+      throw (Ini_Parser_Exception(exception_message));
     }
   }
 
@@ -202,16 +218,21 @@ namespace Ini_Parser
 
     try
     {
-      long long long_long_value = std::stoll(value);
-      return (long_long_value);
+      return (std::stoll(value));
     }
     catch (const std::invalid_argument &e)
     {
-      throw (Conversion_Exception(value, "long long"));
+      std::string exception_message = "cannot convert from ";
+      exception_message += value;
+      exception_message += " to long long";
+      throw (Ini_Parser_Exception(exception_message));
     }
     catch (const std::out_of_range &e)
     {
-      throw (Conversion_Exception(value, "long long"));
+      std::string exception_message = "cannot convert from ";
+      exception_message += value;
+      exception_message += " to long long";
+      throw (Ini_Parser_Exception(exception_message));
     }
   }
 
@@ -222,16 +243,21 @@ namespace Ini_Parser
 
     try
     {
-      float float_value = std::stof(value);
-      return (float_value);
+      return (std::stof(value));
     }
     catch (const std::invalid_argument &e)
     {
-      throw (Conversion_Exception(value, "float"));
+      std::string exception_message = "cannot convert from ";
+      exception_message += value;
+      exception_message += " to float";
+      throw (Ini_Parser_Exception(exception_message));
     }
     catch (const std::out_of_range &e)
     {
-      throw (Conversion_Exception(value, "float"));
+      std::string exception_message = "cannot convert from ";
+      exception_message += value;
+      exception_message += " to float";
+      throw (Ini_Parser_Exception(exception_message));
     }
   }
 
@@ -242,16 +268,21 @@ namespace Ini_Parser
 
     try
     {
-      double double_value = std::stod(value);
-      return (double_value);
+      return (std::stod(value));
     }
     catch (const std::invalid_argument &e)
     {
-      throw (Conversion_Exception(value, "double"));
+      std::string exception_message = "cannot convert from ";
+      exception_message += value;
+      exception_message += " to double";
+      throw (Ini_Parser_Exception(exception_message));
     }
     catch (const std::out_of_range &e)
     {
-      throw (Conversion_Exception(value, "double"));
+      std::string exception_message = "cannot convert from ";
+      exception_message += value;
+      exception_message += " to double";
+      throw (Ini_Parser_Exception(exception_message));
     }
   }
 
@@ -267,7 +298,10 @@ namespace Ini_Parser
     }
     else
     {
-      throw (Conversion_Exception(value, "date"));
+      std::string exception_message = "cannot convert from ";
+      exception_message += value;
+      exception_message += " to Date";
+      throw (Ini_Parser_Exception(exception_message));
     }
   }
 
@@ -283,7 +317,10 @@ namespace Ini_Parser
     }
     else
     {
-      throw (Conversion_Exception(value, "time"));
+      std::string exception_message = "cannot convert from ";
+      exception_message += value;
+      exception_message += " to Time";
+      throw (Ini_Parser_Exception(exception_message));
     }
   }
 
@@ -293,7 +330,7 @@ namespace Ini_Parser
     // just a new line
     if (!line.empty())
     {
-      return ( line.front() == '#' || line.front() == '\n' || line.length() == 0);
+      return (line.front() == '#' || line.front() == '\n' || line.length() == 0);
     }
     else
     {

@@ -32,7 +32,7 @@ TEST(Ini_Parser, Get_Values)
 
 TEST(Ini_Parser, File_Exceptions)
 {
-  bool got_file_not_found_exception = false;
+  bool got_exception = false;
   
   try
   {
@@ -48,14 +48,14 @@ TEST(Ini_Parser, File_Exceptions)
     double value7 = parser.get_as<double>("tag_3", "value7");
     long long value8 = parser.get_as<long long>("tag_4", "value8");
   }
-  catch (const Ini_Parser::File_Not_Found_Exception  &e)
+  catch (const Ini_Parser::Ini_Parser_Exception  &e)
   {
-    got_file_not_found_exception = true;
+    got_exception = true;
   }
 
-  EXPECT_TRUE(got_file_not_found_exception);
+  EXPECT_TRUE(got_exception);
   
-  bool got_file_not_open_exception = false;
+  got_exception = false;
 
   try
   {
@@ -71,17 +71,17 @@ TEST(Ini_Parser, File_Exceptions)
     double value7 = parser.get_as<double>("tag_3", "value7");
     long long value8 = parser.get_as<long long>("tag_4", "value8");
   }
-  catch (const Ini_Parser::File_Not_Open_Exception &e)
+  catch (const Ini_Parser::Ini_Parser_Exception &e)
   {
-    got_file_not_open_exception = true;
+    got_exception = true;
   }
 
-  EXPECT_TRUE(got_file_not_open_exception);
+  EXPECT_TRUE(got_exception);
 }
 
 TEST(Ini_Parser, Format_Exceptions)
 {
-  bool got_format_exception = false;
+  bool got_exception = false;
 
   try
   {
@@ -90,14 +90,14 @@ TEST(Ini_Parser, Format_Exceptions)
 
     float value1 = parser.get_as<float>("tag_1", "value1");
   }
-  catch (const Ini_Parser::Ini_Format_Exception &e)
+  catch (const Ini_Parser::Ini_Parser_Exception &e)
   {
-    got_format_exception = true;
+    got_exception = true;
   }
 
-  EXPECT_TRUE(got_format_exception);
+  EXPECT_TRUE(got_exception);
 
-  got_format_exception = false;
+  got_exception = false;
 
   try
   {
@@ -106,17 +106,17 @@ TEST(Ini_Parser, Format_Exceptions)
 
     float value1 = parser.get_as<float>("tag_1", "value1");
   }
-  catch (const Ini_Parser::Ini_Format_Exception &e)
+  catch (const Ini_Parser::Ini_Parser_Exception &e)
   {
-    got_format_exception = true;
+    got_exception = true;
   }
 
-  EXPECT_TRUE(got_format_exception);
+  EXPECT_TRUE(got_exception);
 }
 
 TEST(Ini_Parser, Conversion_Exceptions)
 {
-  bool got_conversion_exception = false;
+  bool got_exception = false;
 
   try
   {
@@ -125,14 +125,14 @@ TEST(Ini_Parser, Conversion_Exceptions)
 
     float value1 = parser.get_as<float>("tag_1", "value1");
   }
-  catch (const Ini_Parser::Conversion_Exception &e)
+  catch (const Ini_Parser::Ini_Parser_Exception &e)
   {
-    got_conversion_exception = true;
+    got_exception = true;
   }
 
-  EXPECT_TRUE(got_conversion_exception);
+  EXPECT_TRUE(got_exception);
 
-  got_conversion_exception = false;
+  got_exception = false;
 
   try
   {
@@ -141,14 +141,14 @@ TEST(Ini_Parser, Conversion_Exceptions)
 
     float value3 = parser.get_as<bool>("tag_1", "value3");
   }
-  catch (const Ini_Parser::Conversion_Exception &e)
+  catch (const Ini_Parser::Ini_Parser_Exception &e)
   {
-    got_conversion_exception = true;
+    got_exception = true;
   }
 
-  EXPECT_TRUE(got_conversion_exception);
+  EXPECT_TRUE(got_exception);
 
-  got_conversion_exception = false;
+  got_exception = false;
 
   try
   {
@@ -157,14 +157,14 @@ TEST(Ini_Parser, Conversion_Exceptions)
 
     Ini_Parser::Datestamp value3 = parser.get_as<Ini_Parser::Datestamp>("tag_1", "value3");
   }
-  catch (const Ini_Parser::Conversion_Exception &e)
+  catch (const Ini_Parser::Ini_Parser_Exception &e)
   {
-    got_conversion_exception = true;
+    got_exception = true;
   }
 
-  EXPECT_TRUE(got_conversion_exception);
+  EXPECT_TRUE(got_exception);
 
-  got_conversion_exception = false;
+  got_exception = false;
 
   try
   {
@@ -173,14 +173,14 @@ TEST(Ini_Parser, Conversion_Exceptions)
 
     Ini_Parser::Timestamp value3 = parser.get_as<Ini_Parser::Timestamp>("tag_1", "value3");
   }
-  catch (const Ini_Parser::Conversion_Exception &e)
+  catch (const Ini_Parser::Ini_Parser_Exception &e)
   {
-    got_conversion_exception = true;
+    got_exception = true;
   }
 
-  EXPECT_TRUE(got_conversion_exception);
+  EXPECT_TRUE(got_exception);
 
-  got_conversion_exception = false;
+  got_exception = false;
 
   try
   {
@@ -189,14 +189,14 @@ TEST(Ini_Parser, Conversion_Exceptions)
 
     long value1 = parser.get_as<long>("tag_1", "value1");
   }
-  catch (const Ini_Parser::Conversion_Exception &e)
+  catch (const Ini_Parser::Ini_Parser_Exception &e)
   {
-    got_conversion_exception = true;
+    got_exception = true;
   }
 
-  EXPECT_TRUE(got_conversion_exception);
+  EXPECT_TRUE(got_exception);
 
-  got_conversion_exception = false;
+  got_exception = false;
 
   try
   {
@@ -205,17 +205,17 @@ TEST(Ini_Parser, Conversion_Exceptions)
 
     long long value2 = parser.get_as<long long>("tag_1", "value2");
   }
-  catch (const Ini_Parser::Conversion_Exception &e)
+  catch (const Ini_Parser::Ini_Parser_Exception &e)
   {
-    got_conversion_exception = true;
+    got_exception = true;
   }
 
-  EXPECT_TRUE(got_conversion_exception);
+  EXPECT_TRUE(got_exception);
 }
 
 TEST(Ini_Parser, Key_And_Tag_Exceptions)
 {
-  bool got_tag_not_found_exception = false;
+  bool got_exception = false;
 
   try
   {
@@ -224,14 +224,14 @@ TEST(Ini_Parser, Key_And_Tag_Exceptions)
 
     bool value1 = parser.get_as<bool>("tag_5", "value1");
   }
-  catch (const Ini_Parser::Tag_Not_Found_Exception &e)
+  catch (const Ini_Parser::Ini_Parser_Exception &e)
   {
-    got_tag_not_found_exception = true;
+    got_exception = true;
   }
   
-  EXPECT_TRUE(got_tag_not_found_exception);
+  EXPECT_TRUE(got_exception);
 
-  bool got_key_not_found_exception = false;
+  got_exception = false;
 
   try
   {
@@ -240,12 +240,12 @@ TEST(Ini_Parser, Key_And_Tag_Exceptions)
 
     bool value4 = parser.get_as<bool>("tag_1", "value4");
   }
-  catch (const Ini_Parser::Key_Not_Found_Exception &e)
+  catch (const Ini_Parser::Ini_Parser_Exception &e)
   {
-    got_key_not_found_exception = true;
+    got_exception = true;
   }
   
-  EXPECT_TRUE(got_key_not_found_exception);
+  EXPECT_TRUE(got_exception);
 }
 
 

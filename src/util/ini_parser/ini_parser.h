@@ -3,12 +3,8 @@
 
 #include "datestamp.h"
 #include "timestamp.h"
-#include "conversion_exception.h"
-#include "file_not_found_exception.h"
-#include "file_not_open_exception.h"
-#include "ini_format_exception.h"
-#include "key_not_found_exception.h"
-#include "tag_not_found_exception.h"
+
+#include "ini_parser_exception.h"
 
 #include <map>
 #include <fstream>
