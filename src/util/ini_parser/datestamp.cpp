@@ -1,5 +1,7 @@
 #include "datestamp.h"
 
+#include <tuple>
+
 namespace Ini_Parser
 {
   Datestamp::Datestamp(const std::tm &date) :
@@ -72,49 +74,65 @@ namespace Ini_Parser
   {
     // Not comparing day of week because it is a side effect of the
     // month, day and year.
-    return (this->month == other.month &&
-	    this->day_of_month == other.day_of_month &&
-	    this->year == other.year);
+    // return (this->month == other.month &&
+    // 	    this->day_of_month == other.day_of_month &&
+    // 	    this->year == other.year);
+
+    return (std::tie(this->month, this->day_of_month, this->year) ==
+	    std::tie(other.month, other.day_of_month, other.year));
   }
   
   bool Datestamp::operator!=(const Datestamp &other)
   {
-    return (!(*this == other));
+    // return (!(*this == other));
+
+    return (std::tie(this->month, this->day_of_month, this->year) !=
+	    std::tie(other.month, other.day_of_month, other.year));
   }
   
   bool Datestamp::operator>(const Datestamp &other)
   {
-    bool ret = false;
+    // bool ret = false;
     
-    if (this->year != other.year)
-    {
-      ret = this->year > other.year;
-    }
-    else if (this->month != other.month)
-    {
-      ret = this->month > other.month;
-    }
-    else if (this->day_of_month != other.day_of_month)
-    {
-      ret = this->day_of_month > other.day_of_month;
-    }
+    // if (this->year != other.year)
+    // {
+    //   ret = this->year > other.year;
+    // }
+    // else if (this->month != other.month)
+    // {
+    //   ret = this->month > other.month;
+    // }
+    // else if (this->day_of_month != other.day_of_month)
+    // {
+    //   ret = this->day_of_month > other.day_of_month;
+    // }
 
-    return (ret);
+    // return (ret);
+
+    return (std::tie(this->month, this->day_of_month, this->year) >
+	    std::tie(other.month, other.day_of_month, other.year));
   }
   
   bool Datestamp::operator<(const Datestamp &other)
   {
-    return (!(*this > other) && !(*this == other));
+    // return (!(*this > other) && !(*this == other));
+    
+    return (std::tie(this->month, this->day_of_month, this->year) <
+	    std::tie(other.month, other.day_of_month, other.year));
   }
   
   bool Datestamp::operator>=(const Datestamp &other)
   {
-    return ((*this == other) || (*this > other));
+    // return ((*this == other) || (*this > other));
+    return (std::tie(this->month, this->day_of_month, this->year) >=
+	    std::tie(other.month, other.day_of_month, other.year));
   }
   
   bool Datestamp::operator<=(const Datestamp &other)
   {
-    return ((*this == other) || (*this < other));
+    // return ((*this == other) || (*this < other));
+    return (std::tie(this->month, this->day_of_month, this->year) <=
+	    std::tie(other.month, other.day_of_month, other.year));
   }
   
   std::ostream &operator<<(std::ostream &os, const Datestamp &date)

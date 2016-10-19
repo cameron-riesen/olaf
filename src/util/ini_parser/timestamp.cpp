@@ -1,5 +1,7 @@
 #include "timestamp.h"
 
+#include <tuple>
+
 namespace Ini_Parser
 {
   Timestamp::Timestamp(const std::tm &time) :
@@ -60,37 +62,38 @@ namespace Ini_Parser
 
   bool Timestamp::operator==(const Timestamp &other)
   {
-    return (this->hour == other.hour &&
-	    this->minute == other.minute &&
-	    this->second == other.second);
+    return (std::tie(this->hour, this->minute, this->second) ==
+	    std::tie(other.hour, other.minute, other.second));
   }
   
   bool Timestamp::operator!=(const Timestamp &other)
   {
-    return (!(*this == other));
+    return (std::tie(this->hour, this->minute, this->second) !=
+	    std::tie(other.hour, other.minute, other.second));
   }
   
   bool Timestamp::operator>(const Timestamp &other)
   {
-    int this_total_seconds = (this->hour * 60 * 60) + (this->minute * 60) + this->second;
-    int other_total_seconds = (other.hour * 60 * 60) + (other.minute * 60) + other.second;
-
-    return (this_total_seconds > other_total_seconds);
+    return (std::tie(this->hour, this->minute, this->second) >
+	    std::tie(other.hour, other.minute, other.second));
   }
   
   bool Timestamp::operator<(const Timestamp &other)
   {
-    return (!(*this > other) && !(*this == other));
+    return (std::tie(this->hour, this->minute, this->second) <
+	    std::tie(other.hour, other.minute, other.second));
   }
   
   bool Timestamp::operator>=(const Timestamp &other)
   {
-    return ((*this > other) || (*this == other));
+    return (std::tie(this->hour, this->minute, this->second) >=
+	    std::tie(other.hour, other.minute, other.second));
   }
   
   bool Timestamp::operator<=(const Timestamp &other)
   {
-    return ((*this < other) || (*this == other));
+    return (std::tie(this->hour, this->minute, this->second) <=
+	    std::tie(other.hour, other.minute, other.second));
   }
   
   std::ostream &operator<<(std::ostream &os, const Timestamp &time)
